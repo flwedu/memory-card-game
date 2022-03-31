@@ -31,4 +31,11 @@ module.exports = {
       hash: true,
     }),
   ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "build"),
+    },
+    compress: true,
+    port: 9000,
+  },
 };
