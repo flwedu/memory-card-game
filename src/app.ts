@@ -5,6 +5,7 @@ import { shuffle } from "./util/shuffle-array";
 
 export default class App {
 
+    private attempts = 0;
     private flippedCards: Card[] = [];
     private pairCards: Card[] = [];
     public cardList: CardList;
@@ -32,12 +33,17 @@ export default class App {
     };
 
     checkFlippedPair() {
+        // Success
         if (this.pairCards.length == 2 && this.checkMatch(this.pairCards)) {
             this.flippedCards.push(...this.pairCards);
-            return EventEmitter.emit("score", {})
+            this.clearPairCards();
+            return EventEmitter.emit("success", {})
         }
+        // Fail
         if (this.pairCards.length == 2) {
-            EventEmitter.emit("unflip", {});
+            this.addAttempt();
+            setTimeout(() => this.unflipCards(), 1000);
+            EventEmitter.emit("fail", this.attempts);
         }
     };
 
@@ -48,5 +54,9 @@ export default class App {
 
     clearPairCards() {
         this.pairCards.length = 0;
+    }
+
+    addAttempt() {
+        this.attempts += 1;
     }
 }
