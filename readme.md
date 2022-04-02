@@ -1,4 +1,4 @@
-# Card Memory Game
+# Memory Card Game
 
 Essa é uma aplicação simples de um card game. Para vencer você deve virar os pares de carta na ordem correta.
 
