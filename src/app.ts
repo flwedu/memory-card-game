@@ -1,6 +1,7 @@
 import Card from "./components/Card";
 import CardList from "./components/CardList";
 import { EventEmitter } from "./EventEmitter";
+import { shuffle } from "./util/shuffle-array";
 
 export default class App {
 
@@ -9,6 +10,7 @@ export default class App {
     public cardList: CardList;
 
     constructor(private numbersArray: number[]) {
+        this.numbersArray = shuffle(numbersArray);
         this.cardList = new CardList(document.getElementById("cardList"), this.numbersArray);
     }
 
