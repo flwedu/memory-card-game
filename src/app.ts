@@ -37,7 +37,7 @@ export default class App {
         if (this.pairCards.length == 2 && this.checkMatch(this.pairCards)) {
             this.flippedCards.push(...this.pairCards);
             this.clearPairCards();
-            return EventEmitter.emit("success", {})
+            return EventEmitter.emit("success", this.attempts)
         }
         // Fail
         if (this.pairCards.length == 2) {
@@ -58,5 +58,9 @@ export default class App {
 
     addAttempt() {
         this.attempts += 1;
+    }
+
+    checkAllCardsFlipped() {
+        return this.flippedCards.length == this.numbersArray.length;
     }
 }
