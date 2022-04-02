@@ -5,7 +5,7 @@ export default class CardList implements Component {
 
     cards: Card[] = [];
 
-    constructor(private el: HTMLElement, private numberArray: number[]) {
+    constructor(private el: HTMLElement, numberArray: number[]) {
         numberArray.forEach(
             value => this.addCard(value)
         )

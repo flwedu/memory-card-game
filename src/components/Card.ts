@@ -1,3 +1,4 @@
+import { EventEmitter } from "../EventEmitter";
 import Component from "./Component";
 
 export default class Card implements Component {
@@ -18,7 +19,7 @@ export default class Card implements Component {
         this.el.appendChild(this.innerImgEl);
 
         // Event
-        this.el.addEventListener("click", () => this.flip());
+        this.el.addEventListener("click", () => EventEmitter.emit("flip", this));
     }
 
     render(): void {
