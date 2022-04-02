@@ -5,43 +5,46 @@ import { EventEmitter } from "./EventEmitter";
 export default class App {
 
     private flippedCards: Card[] = [];
+    private pairCards: Card[] = [];
     public cardList: CardList;
 
     constructor(private numbersArray: number[]) {
         this.cardList = new CardList(document.getElementById("cardList"), this.numbersArray);
     }
 
-    addCardToFlipped(card: Card) {
+    addCardToPair(card: Card) {
         // Check if card is already in list (double click)
-        if (this.flippedCards.includes(card)) return;
+        // or already is in flipped cards list
+        if (this.pairCards.includes(card) || this.flippedCards.includes(card)) return;
 
         // Check the list size
-        if (this.flippedCards.length < 2) {
-            this.flippedCards.push(card);
+        if (this.pairCards.length < 2) {
+            this.pairCards.push(card);
             card.flip();
         }
-        this.checkTwoFlippedCards();
+        this.checkFlippedPair();
     }
 
     checkMatch(cards: Card[]) {
-        return cards.every(card => card.gameValue === this.flippedCards[0].gameValue);
+        return cards.every(card => card.gameValue === this.pairCards[0].gameValue);
     };
 
-    checkTwoFlippedCards() {
-        if (this.flippedCards.length == 2 && this.checkMatch(this.flippedCards)) {
+    checkFlippedPair() {
+        if (this.pairCards.length == 2 && this.checkMatch(this.pairCards)) {
+            this.flippedCards.push(...this.pairCards);
             return EventEmitter.emit("score", {})
         }
-        if (this.flippedCards.length == 2) {
+        if (this.pairCards.length == 2) {
             EventEmitter.emit("unflip", {});
         }
     };
 
     unflipCards() {
-        this.flippedCards.forEach(card => card.unflip());
-        this.clearFlippedCards();
+        this.pairCards.forEach(card => card.unflip());
+        this.clearPairCards();
     };
 
-    clearFlippedCards() {
-        this.flippedCards.length = 0;
+    clearPairCards() {
+        this.pairCards.length = 0;
     }
 }
