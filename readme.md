@@ -16,7 +16,13 @@ Essa é uma aplicação simples de um card game. Para vencer você deve virar os
 
 ## Configurando e rodando o projeto
 
-Scripts:
+Primeiro é necessário baixar as dependências do projeto.
+
+```bash
+npm install
+```
+
+Depois, execute o script desejado:
 
 ```Text
 // Gerar build
