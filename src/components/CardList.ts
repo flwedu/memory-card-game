@@ -4,8 +4,9 @@ import Component from "./Component";
 export default class CardList implements Component {
 
     cards: Card[] = [];
+    private el = document.getElementById("cardList");
 
-    constructor(private el: HTMLElement, numberArray: number[]) {
+    constructor(numberArray: number[]) {
         numberArray.forEach(
             value => this.addCard(value)
         )

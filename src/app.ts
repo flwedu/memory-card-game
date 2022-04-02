@@ -11,7 +11,7 @@ export default class App {
 
     constructor(private numbersArray: number[]) {
         this.numbersArray = shuffle(numbersArray);
-        this.cardList = new CardList(document.getElementById("cardList"), this.numbersArray);
+        this.cardList = new CardList(this.numbersArray);
     }
 
     addCardToPair(card: Card) {
