@@ -1,4 +1,4 @@
-import "./main.scss"
+import './style.css';
 import App from "./app"
 import { EventEmitter } from "./EventEmitter";
 import Card from "./components/Card";
