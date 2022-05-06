@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply grid mx-auto my-6 max-w-2xl;
+  }
+
+  #app {
+    @apply mx-8 bg-gradient-to-r from-blue-800 to-fuchsia-800 flex flex-col;
+  }
+
+  #score {
+    @apply font-sans font-bold text-zinc-300;
+  }
+
+  #cardList {
+    @apply grid grid-cols-4 sm:grid-cols-5 bg-[url('/src/assets/bg.gif')];
+  }
+}
+
+.card {
+  width: 90%;
+  margin: 4px 2px;
+  border: transparent;
+  border-radius: 5px;
+  max-height: calc(width * 1.6);
+  perspective: 1000px;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card img {
+  padding: 0;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+.flipped {
+  border: 3px rgb(113, 74, 252) solid;
+  border-radius: 5px;
+  transform: rotateY(180deg);
+}
+
+#success {
+  width: 100%;
+  height: 100%;
+  background-image: url("/src/assets/bg.gif");
+  text-align: center;
+}
+
+#success h1 {
+  font-weight: 900;
+}
+#success p {
+  font-size: 30;
+}
