@@ -2,25 +2,33 @@ import Card from "./Card";
 import Component from "./Component";
 
 export default class CardList implements Component {
+  cards: Card[] = [];
+  private el: HTMLDivElement;
 
-    cards: Card[] = [];
-    private el = document.getElementById("cardList");
+  constructor(el: HTMLDivElement, cards: Card[]) {
+    this.el = el;
+    this.cards = cards;
 
-    constructor(numberArray: number[]) {
-        numberArray.forEach(
-            value => this.addCard(value)
-        )
+    this.el.className = "card-list";
+    this.el.addEventListener("click", this.handleClick.bind(this));
+
+    const cardElements = this.cards.map((card) => card.getEl());
+    cardElements.forEach((cardElement) => this.el.appendChild(cardElement));
+  }
+
+  handleClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains("card")) {
+      const cardIndex = Number(target.getAttribute("data-index"));
+      this.cards[cardIndex].flip();
     }
+  }
 
-    addCard(value: number) {
-        // Creating entity
-        const card = new Card(value);
-        this.cards.push(card);
-        // Creating child node
-        this.el.appendChild(card.getHtmlElement());
-    }
+  getEl(): HTMLDivElement {
+    return this.el;
+  }
 
-    render(): void {
-    }
-
+  render(): string {
+    return this.el.innerHTML;
+  }
 }

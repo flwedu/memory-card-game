@@ -1,18 +1,28 @@
+import Card from "./Card";
 import CardList from "./CardList";
 
 describe("CardList class tests", () => {
+  const numberArr = [1, 1, 2, 2];
+  test("render() should return the correct html to div element", () => {
+    const div = document.createElement("div");
+    const cards = numberArr.map((value, index) => new Card(value, index));
+    const cardList = new CardList(div, cards);
 
-    test("Should create a card for each children and the children receives a value of numberArray", () => {
+    expect(div.innerHTML).toMatchSnapshot();
+    expect(cardList.render()).toEqual(div.innerHTML);
+  });
 
-        document.body.innerHTML = `<div id="cardList"></div>`
-        const numberArray = [1, 2];
-        const cardList = new CardList(numberArray);
+  test("handleClick() should call the flip() method of the card", () => {
+    const div = document.createElement("div");
+    const cards = numberArr.map((value, index) => new Card(value, index));
+    const cardList = new CardList(div, cards);
+    const firstCard = cards[0];
+    const spy = jest.spyOn(firstCard, "flip");
 
-        expect.assertions(3);
-        expect(cardList.cards.length).toEqual(2);
-        expect(cardList.cards.at(0).gameValue).toEqual(1);
-        expect(cardList.cards.at(1).gameValue).toEqual(2);
-    })
+    const firstCardEl = firstCard.getEl();
+    firstCardEl.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
-
-})
+    expect(spy).toHaveBeenCalled();
+    expect(firstCard.flipped).toBe(true);
+  });
+});
