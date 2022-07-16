@@ -1,49 +1,49 @@
 import Card from "./Card";
 
 describe("Card component tests", () => {
+  beforeEach(() => {
+    document.body.innerHTML = "";
+  });
 
-    beforeEach(() => {
-        document.body.innerHTML = "";
-    })
+  test.each([1, 2, 3])(
+    "Should create a card with correct attributes",
+    (value: number) => {
+      const card = new Card(value, 0);
+      const el = card.render();
+      document.body.appendChild(el);
 
-    test.each([1, 2, 3])("Should create a card with correct values", (value: number) => {
+      expect(card.getValue()).toEqual(value);
+      expect(el).toEqual(document.querySelector(".card"));
+      expect(document.querySelector("img").src).toEqual(
+        "http://localhost/assets/0.png"
+      );
+    }
+  );
 
-        const card = new Card(value);
-        const el = card.getHtmlElement();
-        document.body.appendChild(el);
+  test("card.flip() should add flipped class to element and change img src", () => {
+    const card = new Card(10, 0);
+    const el = card.render();
+    document.body.appendChild(el);
+    const img = document.querySelector("img");
 
-        expect(card.gameValue).toEqual(value);
-        expect(el).toEqual(document.querySelector(".card"));
-        expect(document.querySelector("img").src).toEqual("http://localhost/assets/0.png")
+    card.flip();
 
-    })
+    expect.assertions(2);
+    expect(el.classList.contains("flipped")).toBeTruthy();
+    expect(img.src).toEqual("http://localhost/assets/10.jpg");
+  });
 
-    test("Flip method should add flipped class to element and change img src", () => {
+  test("card.unFlip() should remove flipped class of element and change img src", () => {
+    const card = new Card(10, 0);
+    const el = card.render();
+    document.body.appendChild(el);
+    const img = document.querySelector("img");
 
-        const card = new Card(10);
-        const el = card.getHtmlElement();
-        document.body.appendChild(el);
-        const img = document.querySelector("img");
+    card.flip();
+    card.unFlip();
 
-        card.flip();
-
-        expect.assertions(2);
-        expect(el.classList.contains("flipped")).toBeTruthy();
-        expect(img.src).toEqual("http://localhost/assets/10.jpg");
-    })
-
-    test("Unflip method should remove flipped class of element and change img src", () => {
-
-        const card = new Card(10);
-        const el = card.getHtmlElement();
-        document.body.appendChild(el);
-        const img = document.querySelector("img");
-
-        card.flip();
-        card.unflip();
-
-        expect.assertions(2);
-        expect(el.classList.contains("flipped")).toBeFalsy();
-        expect(img.src).toEqual("http://localhost/assets/0.png");
-    })
-})
+    expect.assertions(2);
+    expect(el.classList.contains("flipped")).toBeFalsy();
+    expect(img.src).toEqual("http://localhost/assets/0.png");
+  });
+});
