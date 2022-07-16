@@ -9,7 +9,7 @@ describe("Card component tests", () => {
     "Should create a card with correct attributes",
     (value: number) => {
       const card = new Card(value, 0);
-      const el = card.render();
+      const el = card.getEl();
       document.body.appendChild(el);
 
       expect(card.getValue()).toEqual(value);
@@ -22,7 +22,7 @@ describe("Card component tests", () => {
 
   test("card.flip() should add flipped class to element and change img src", () => {
     const card = new Card(10, 0);
-    const el = card.render();
+    const el = card.getEl();
     document.body.appendChild(el);
     const img = document.querySelector("img");
 
@@ -35,7 +35,7 @@ describe("Card component tests", () => {
 
   test("card.unFlip() should remove flipped class of element and change img src", () => {
     const card = new Card(10, 0);
-    const el = card.render();
+    const el = card.getEl();
     document.body.appendChild(el);
     const img = document.querySelector("img");
 

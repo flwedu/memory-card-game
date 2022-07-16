@@ -22,7 +22,11 @@ export default class Card implements Component {
     return this.value;
   }
 
-  render(): HTMLDivElement {
+  render(): string {
+    return this.el.innerHTML;
+  }
+
+  getEl(): HTMLDivElement {
     return this.el;
   }
 
