@@ -40,6 +40,10 @@ export default class Card implements Component {
     this.flipped = false;
   }
 
+  checkMatch(card: Card): boolean {
+    return this.value === card.getValue();
+  }
+
   setMatched() {
     this.el.classList.add("matched");
   }
