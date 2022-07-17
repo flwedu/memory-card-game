@@ -2,14 +2,12 @@ import Component from "./Component";
 
 export default class Card implements Component {
   public flipped: boolean = false;
-  private value: number;
   private frontImgUrl: string;
   private backImgUrl: string = "assets/0.png";
   private el: HTMLDivElement = document.createElement("div");
   private innerImgEl: HTMLImageElement = document.createElement("img");
 
-  constructor(value: number, index: number) {
-    this.value = value;
+  constructor(private value: number, index: number) {
     this.el.dataset.index = index.toString();
     this.frontImgUrl = `assets/${this.value}.jpg`;
     this.el.className = "card";

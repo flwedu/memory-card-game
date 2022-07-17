@@ -2,14 +2,9 @@ import Card from "./Card";
 import Component from "./Component";
 
 export default class CardList implements Component {
-  cards: Card[] = [];
   private selectedCards: Card[] = [];
-  private el: HTMLDivElement;
 
-  constructor(el: HTMLDivElement, cards: Card[]) {
-    this.el = el;
-    this.cards = cards;
-
+  constructor(private el: HTMLDivElement, private cards: Card[]) {
     const gameSize = (this.cards.length / 2) as number;
 
     this.el.classList.add(`size-${gameSize}`);
