@@ -41,4 +41,12 @@ export default class Card implements Component {
     this.el.classList.remove("flipped");
     this.flipped = false;
   }
+
+  setMatched() {
+    this.el.classList.add("matched");
+  }
+
+  isMatched(): boolean {
+    return this.el.classList.contains("matched");
+  }
 }
