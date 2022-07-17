@@ -3,6 +3,7 @@ import Component from "./Component";
 
 export default class CardList implements Component {
   cards: Card[] = [];
+  private selectedCards: Card[] = [];
   private el: HTMLDivElement;
 
   constructor(el: HTMLDivElement, cards: Card[]) {
@@ -27,9 +28,12 @@ export default class CardList implements Component {
     }
     if (el.classList.contains("card")) {
       const cardIndex = Number(el.getAttribute("data-index"));
-      this.cards[cardIndex].flip();
+      const card = this.cards[cardIndex];
+      card.flip();
+      if (this.selectedCards.length < 2) {
+        this.selectedCards.push(card);
+      }
     }
-  }
 
   getEl(): HTMLDivElement {
     return this.el;
