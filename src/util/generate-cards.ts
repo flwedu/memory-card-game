@@ -5,8 +5,8 @@ export function generateCards(cardNumber: number) {
   const numberArray: number[] = [];
 
   for (let i = 0; i < cardNumber; i++) {
-    numberArray.push(i);
-    numberArray.push(i);
+    numberArray.push(i + 1);
+    numberArray.push(i + 1);
   }
 
   const shuffledArray = shuffleArray(numberArray);
