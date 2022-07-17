@@ -5,7 +5,7 @@ describe("CardList class tests", () => {
   const numberArr = [1, 1, 2, 2];
   test("render() should return the correct html to div element", () => {
     const div = document.createElement("div");
-    const cards = numberArr.map((value, index) => new Card(value, index));
+    const cards = generateCardsArrayFromArray(numberArr);
     const cardList = new CardList(div, cards);
 
     expect(div.innerHTML).toMatchSnapshot();
@@ -14,7 +14,7 @@ describe("CardList class tests", () => {
 
   test("handleClick() should call the flip() method of the card", () => {
     const div = document.createElement("div");
-    const cards = numberArr.map((value, index) => new Card(value, index));
+    const cards = generateCardsArrayFromArray(numberArr);
     const cardList = new CardList(div, cards);
     const firstCard = cards[0];
     const spy = jest.spyOn(firstCard, "flip");
@@ -28,7 +28,7 @@ describe("CardList class tests", () => {
 
   test("getSelectedCards() should return the selected cards", () => {
     const div = document.createElement("div");
-    const cards = numberArr.map((value, index) => new Card(value, index));
+    const cards = generateCardsArrayFromArray(numberArr);
     const cardList = new CardList(div, cards);
     const firstCard = cards[0];
     const secondCard = cards[1];
