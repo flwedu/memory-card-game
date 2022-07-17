@@ -7,7 +7,7 @@ export default class Card implements Component {
   private el: HTMLDivElement = document.createElement("div");
   private innerImgEl: HTMLImageElement = document.createElement("img");
 
-  constructor(private value: number, index: number) {
+  constructor(private value: number, public index: number) {
     this.el.dataset.index = index.toString();
     this.frontImgUrl = `assets/${this.value}.jpg`;
     this.el.className = "card";
