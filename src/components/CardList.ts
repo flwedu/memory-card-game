@@ -34,6 +34,19 @@ export default class CardList implements Component {
         this.selectedCards.push(card);
       }
     }
+  }
+
+  getSelectedCards(): Card[] {
+    return this.selectedCards;
+  }
+
+  getUnmatchedCards(): Card[] {
+    return this.cards.filter((card) => !card.isMatched());
+  }
+
+  getFlippedCards(): Card[] {
+    return this.cards.filter((card) => card.flipped);
+  }
 
   getEl(): HTMLDivElement {
     return this.el;
@@ -41,5 +54,30 @@ export default class CardList implements Component {
 
   render(): string {
     return this.el.innerHTML;
+  }
+
+  checkSelectedCardsMatch(): boolean {
+    if (this.checkBothSelectedValuesIsEquals()) {
+      this.setMatchedToSelectedCards();
+      return true;
+    }
+    this.unFlipSelectedCards();
+    return false;
+  }
+
+  private checkBothSelectedValuesIsEquals(): boolean {
+    return (
+      this.selectedCards[0].getValue() === this.selectedCards[1].getValue()
+    );
+  }
+
+  private unFlipSelectedCards(): void {
+    this.selectedCards.forEach((card) => card.unFlip());
+    this.selectedCards = [];
+  }
+
+  private setMatchedToSelectedCards(): void {
+    this.selectedCards.forEach((card) => card.setMatched());
+    this.selectedCards = [];
   }
 }
