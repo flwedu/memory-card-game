@@ -24,10 +24,14 @@ export default class CardList implements Component {
     if (el.classList.contains("card")) {
       const cardIndex = Number(el.getAttribute("data-index"));
       const card = this.cards[cardIndex];
+
+      if (this.selectedCards[0] && this.selectedCards[0].index === card.index)
+        return;
+
+      if (this.selectedCards.length === 2) return;
+
       card.flip();
-      if (this.selectedCards.length < 2) {
-        this.selectedCards.push(card);
-      }
+      this.selectedCards.push(card);
     }
   }
 
@@ -52,18 +56,15 @@ export default class CardList implements Component {
   }
 
   checkSelectedCardsMatch(): boolean {
-    if (this.checkBothSelectedValuesIsEquals()) {
-      this.setMatchedToSelectedCards();
-      return true;
+    if (this.selectedCards.length === 2) {
+      if (this.selectedCards[0].checkMatch(this.selectedCards[1])) {
+        this.setMatchedToSelectedCards();
+        return true;
+      }
+      this.unFlipSelectedCards();
+      return false;
     }
-    this.unFlipSelectedCards();
     return false;
-  }
-
-  private checkBothSelectedValuesIsEquals(): boolean {
-    return (
-      this.selectedCards[0].getValue() === this.selectedCards[1].getValue()
-    );
   }
 
   private unFlipSelectedCards(): void {
