@@ -1,4 +1,5 @@
 import $ from "jquery";
+import Card from "./components/Card";
 import CardList from "./components/CardList";
 import "./styles/index.scss";
 import { generateCardsArrayWithDoubleLength } from "./util/generate-cards";
@@ -33,4 +34,27 @@ function startGame(gameSize: number) {
   cardList.render();
 
   cardListEl.show();
+  listenClickOnCardList(cardList, cards);
+}
+
+function listenClickOnCardList(cardList: CardList, cardsArr: Card[]) {
+  const cardListEl = cardList.getEl();
+  cardListEl.addEventListener("click", (e) => {
+    let el = e.target as HTMLElement;
+    if (el.tagName === "IMG") {
+      el = el.closest(".card");
+    }
+    if (el.classList.contains("card")) {
+      const cardIndex = Number(el.getAttribute("data-index"));
+      const card = cardsArr[cardIndex];
+
+      cardList.addToSelectedCards(card);
+
+      if (cardList.checkTwoSelectedCards()) {
+        const match = cardList.checkSelectedCardsMatch();
+
+        console.log(match);
+      }
+    }
+  });
 }
