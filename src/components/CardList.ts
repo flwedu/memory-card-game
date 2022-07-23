@@ -13,10 +13,7 @@ export default class CardList implements Component {
   }
 
   addToSelectedCards(card: Card): void {
-    if (
-      (this.selectedCards[0] && this.selectedCards[0].checkEquals(card)) ||
-      this.selectedCards.length === 2
-    )
+    if (card.isFlipped() || card.isMatched() || this.checkTwoSelectedCards())
       return;
 
     card.flip();
@@ -32,7 +29,7 @@ export default class CardList implements Component {
   }
 
   getFlippedCards(): Card[] {
-    return this.cards.filter((card) => card.flipped);
+    return this.cards.filter((card) => card.isFlipped());
   }
 
   getEl(): HTMLDivElement {
