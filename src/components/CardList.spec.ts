@@ -24,7 +24,10 @@ describe("CardList class tests", () => {
     cardList.addToSelectedCards(secondCard);
 
     expect(cardList.checkSelectedCardsMatch()).toBe(false);
-    expect(cardList.getFlippedCards().length).toBe(0);
+    setTimeout(() => {
+      expect(cardList.getFlippedCards().length).toBe(0);
+    }, 1100);
+
     expect(cardList.getUnmatchedCards().length).toBe(2);
   });
 

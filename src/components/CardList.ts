@@ -49,7 +49,7 @@ export default class CardList implements Component {
         this.setMatchedToSelectedCards();
         return true;
       }
-      this.unFlipSelectedCards();
+      setTimeout(() => this.unFlipSelectedCards(), 1000);
       return false;
     }
     return false;
