@@ -1,7 +1,7 @@
 import Component from "./Component";
 
 export default class Card implements Component {
-  public flipped: boolean = false;
+  private flipped: boolean = false;
   private frontImgUrl: string;
   private backImgUrl: string = "assets/0.png";
   private el: HTMLDivElement = document.createElement("div");
@@ -50,6 +50,10 @@ export default class Card implements Component {
 
   isMatched(): boolean {
     return this.el.classList.contains("matched");
+  }
+
+  isFlipped(): boolean {
+    return this.flipped;
   }
 
   checkEquals(card: Card): boolean {
