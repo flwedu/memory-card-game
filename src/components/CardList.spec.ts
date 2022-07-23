@@ -1,18 +1,49 @@
+import { generateCardsArrayFromArray } from "../util/generate-cards";
 import CardList from "./CardList";
 
 describe("CardList class tests", () => {
+  const numberArr = [1, 1, 2, 2];
+  test("render() should return the correct html to div element", () => {
+    const div = document.createElement("div");
+    const cards = generateCardsArrayFromArray(numberArr);
+    const cardList = new CardList(div, cards);
 
-    test("Should create a card for each children and the children receives a value of numberArray", () => {
+    expect(div.innerHTML).toMatchSnapshot();
+    expect(cardList.render()).toEqual(div.innerHTML);
+  });
 
-        document.body.innerHTML = `<div id="cardList"></div>`
-        const numberArray = [1, 2];
-        const cardList = new CardList(numberArray);
+  test("should return false if the selected cards don't match, and getFlippedCards() should return 0 cards", () => {
+    const numberArr = [1, 2];
+    const div = document.createElement("div");
+    const cards = generateCardsArrayFromArray(numberArr);
+    const cardList = new CardList(div, cards);
+    const firstCard = cards[0];
+    const secondCard = cards[1];
 
-        expect.assertions(3);
-        expect(cardList.cards.length).toEqual(2);
-        expect(cardList.cards.at(0).gameValue).toEqual(1);
-        expect(cardList.cards.at(1).gameValue).toEqual(2);
-    })
+    cardList.addToSelectedCards(firstCard);
+    cardList.addToSelectedCards(secondCard);
 
+    expect(cardList.checkSelectedCardsMatch()).toBe(false);
+    setTimeout(() => {
+      expect(cardList.getFlippedCards().length).toBe(0);
+    }, 1100);
 
-})
+    expect(cardList.getUnmatchedCards().length).toBe(2);
+  });
+
+  test("should return true if the selected cards match, and getFlippedCards() should return 2 cards", () => {
+    const numberArr = [1, 1];
+    const div = document.createElement("div");
+    const cards = generateCardsArrayFromArray(numberArr);
+    const cardList = new CardList(div, cards);
+    const firstCard = cards[0];
+    const secondCard = cards[1];
+
+    cardList.addToSelectedCards(firstCard);
+    cardList.addToSelectedCards(secondCard);
+
+    expect(cardList.checkSelectedCardsMatch()).toBe(true);
+    expect(cardList.getFlippedCards().length).toBe(2);
+    expect(cardList.getUnmatchedCards().length).toBe(0);
+  });
+});

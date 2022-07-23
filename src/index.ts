@@ -1,27 +1,39 @@
-import './style.css';
-import App from "./app"
-import { EventEmitter } from "./EventEmitter";
-import Card from "./components/Card";
+import $ from "jquery";
+import CardList from "./components/CardList";
+import GameController from "./GameController";
+import "./styles/index.scss";
+import { generateCardsArrayWithDoubleLength } from "./util/generate-cards";
 
-const numberArray = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
-const app = new App(numberArray);
-const appEl = document.querySelector<HTMLDivElement>("#app");
-const attemptEl = document.querySelector<HTMLSpanElement>("#attempts");
+// DOM ready
+$(function () {
+  loadForm();
 
-EventEmitter.on("flip", (card: Card) => {
-    app.addCardToPair(card);
+  const settingsForm: JQuery<HTMLFormElement> = $("#game-settings form");
+  settingsForm.on("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(settingsForm[0]);
+
+    const gameSize = Number(formData.get("size"));
+    startGame(gameSize);
+  });
 });
 
-EventEmitter.on("fail", (value: number) => {
-    attemptEl.textContent = String(value);
-})
+function loadForm() {
+  $("#game-settings").show();
+  $("#wrong-moves").hide();
+  $("#card-list").hide();
+}
 
-EventEmitter.on("success", (value: number) => {
-    if (app.checkAllCardsFlipped()) {
-        appEl.innerHTML = `<div id="success"><h1>Congrats!</h1>
-        <p>Your number of attempts was ${value}</p>
-        <input type="button" value = "Try Again" onclick="history.go(0)" />
-        </div>
-        `
-    }
-})
+function startGame(gameSize: number) {
+  const cardListEl: JQuery<HTMLDivElement> = $("#card-list");
+  $("#wrong-moves").show();
+  $("#game-settings").hide();
+
+  const cards = generateCardsArrayWithDoubleLength(gameSize);
+  const cardList = new CardList(cardListEl.get(0), cards);
+  const gameController = new GameController(cardList, cards, $("#wrong-moves"));
+  cardList.render();
+
+  cardListEl.show();
+  gameController.start();
+}
