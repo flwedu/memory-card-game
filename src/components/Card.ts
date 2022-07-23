@@ -51,7 +51,8 @@ export default class Card implements Component {
   isMatched(): boolean {
     return this.el.classList.contains("matched");
   }
+
   checkEquals(card: Card): boolean {
-    return this.value === card.getValue();
+    return this.index === card.index;
   }
 }
