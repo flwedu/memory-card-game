@@ -15,7 +15,6 @@ Essa é uma aplicação simples de um card game. Para vencer você deve virar os
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
 ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 </div>
 
@@ -36,4 +35,5 @@ npm run build
 
 # Rodar em modo dev
 npm run dev
+yarn dev
 ```
