@@ -41,4 +41,8 @@ export default class Card implements Component {
     this.el.classList.remove("flipped");
     this.flipped = false;
   }
+
+  checkEquals(card: Card): boolean {
+    return this.value === card.getValue();
+  }
 }
