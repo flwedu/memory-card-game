@@ -20,18 +20,18 @@ $(function () {
 
 function loadForm() {
   $("#game-settings").show();
-  $("#score").hide();
+  $("#wrong-moves").hide();
   $("#card-list").hide();
 }
 
 function startGame(gameSize: number) {
   const cardListEl: JQuery<HTMLDivElement> = $("#card-list");
-  $("#score").show();
+  $("#wrong-moves").show();
   $("#game-settings").hide();
 
   const cards = generateCardsArrayWithDoubleLength(gameSize);
   const cardList = new CardList(cardListEl.get(0), cards);
-  const gameController = new GameController(cardList, cards);
+  const gameController = new GameController(cardList, cards, $("#wrong-moves"));
   cardList.render();
 
   cardListEl.show();

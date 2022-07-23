@@ -2,12 +2,17 @@ import Card from "./components/Card";
 import CardList from "./components/CardList";
 
 export default class GameController {
-  private score = 0;
+  private wrongMoves = 0;
 
-  constructor(private cardList: CardList, private cardsArr: Card[]) {}
+  constructor(
+    private cardList: CardList,
+    private cardsArr: Card[],
+    private wrongMovesEl: JQuery<HTMLParagraphElement>
+  ) {}
 
-  addScore() {
-    this.score++;
+  add1WrongMove() {
+    this.wrongMoves++;
+    this.wrongMovesEl.html(`<p>Wrong moves: ${this.wrongMoves}</p>`);
   }
 
   start() {
@@ -34,8 +39,7 @@ export default class GameController {
           const match = this.cardList.checkSelectedCardsMatch();
 
           if (!match) {
-            this.addScore();
-            console.log(this.score);
+            this.add1WrongMove();
           }
         }
       }
