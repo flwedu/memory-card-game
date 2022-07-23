@@ -8,35 +8,23 @@ export default class CardList implements Component {
     const gameSize = (this.cards.length / 2) as number;
 
     this.el.classList.add(`size-${gameSize}`);
-    this.el.addEventListener("click", this.handleClick.bind(this));
-
     const cardElements = this.cards.map((card) => card.getEl());
     cardElements.forEach((cardElement) => this.el.appendChild(cardElement));
   }
 
-  handleClick(event: MouseEvent): void {
-    let el = event.target as HTMLElement;
+  addToSelectedCards(card: Card): void {
+    if (
+      (this.selectedCards[0] && this.selectedCards[0].checkEquals(card)) ||
+      this.selectedCards.length === 2
+    )
+      return;
 
-    // Check click on a img
-    if (el.tagName === "IMG") {
-      el = el.closest(".card");
-    }
-    if (el.classList.contains("card")) {
-      const cardIndex = Number(el.getAttribute("data-index"));
-      const card = this.cards[cardIndex];
-
-      if (this.selectedCards[0] && this.selectedCards[0].checkEquals(card))
-        return;
-
-      if (this.selectedCards.length === 2) return;
-
-      card.flip();
-      this.selectedCards.push(card);
-    }
+    card.flip();
+    this.selectedCards.push(card);
   }
 
-  getSelectedCards(): Card[] {
-    return this.selectedCards;
+  checkTwoSelectedCards(): boolean {
+    return this.selectedCards.length === 2;
   }
 
   getUnmatchedCards(): Card[] {
@@ -56,7 +44,7 @@ export default class CardList implements Component {
   }
 
   checkSelectedCardsMatch(): boolean {
-    if (this.selectedCards.length === 2) {
+    if (this.checkTwoSelectedCards()) {
       if (this.selectedCards[0].checkMatch(this.selectedCards[1])) {
         this.setMatchedToSelectedCards();
         return true;
