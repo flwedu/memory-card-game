@@ -6,11 +6,11 @@ img {
 
 .card-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 
-  &.size-8 {
-    grid-template-columns: repeat(4, 1fr);
+  &.size-4 {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   &.size-10 {
