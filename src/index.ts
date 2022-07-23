@@ -40,6 +40,11 @@ function startGame(gameSize: number) {
 function listenClickOnCardList(cardList: CardList, cardsArr: Card[]) {
   const cardListEl = cardList.getEl();
   cardListEl.addEventListener("click", (e) => {
+    // Check if already has two selected cards
+    if (cardList.checkTwoSelectedCards()) {
+      return;
+    }
+
     let el = e.target as HTMLElement;
     if (el.tagName === "IMG") {
       el = el.closest(".card");
