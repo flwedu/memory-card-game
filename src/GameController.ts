@@ -1,3 +1,4 @@
+import $ from "jquery";
 import Card from "./components/Card";
 import CardList from "./components/CardList";
 
@@ -41,8 +42,23 @@ export default class GameController {
           if (!match) {
             this.add1WrongMove();
           }
+
+          if (this.cardList.getUnmatchedCards().length === 0) {
+            this.gameOver();
+          }
         }
       }
     });
+  }
+
+  gameOver() {
+    this.wrongMovesEl.hide();
+
+    $("#app").html(`<h1>Game over!</h1>
+    <div class="flex flex-center flex-col">
+    <p>Your number of wrong moves was: ${this.wrongMoves}</p>
+    <button id="restart" onClick="history.go(0);">Restart</button>
+    </div>
+    `);
   }
 }
