@@ -2,10 +2,18 @@ import Card from "./components/Card";
 import CardList from "./components/CardList";
 
 export default class GameController {
+  private score = 0;
+
   constructor(private cardList: CardList, private cardsArr: Card[]) {}
+
+  addScore() {
+    this.score++;
+  }
 
   start() {
     const cardListEl = this.cardList.getEl();
+
+    // Listen to clicks on cardList HTML Element
     cardListEl.addEventListener("click", (e) => {
       // Check if already has two selected cards
       if (this.cardList.checkTwoSelectedCards()) {
@@ -25,7 +33,10 @@ export default class GameController {
         if (this.cardList.checkTwoSelectedCards()) {
           const match = this.cardList.checkSelectedCardsMatch();
 
-          console.log(match);
+          if (!match) {
+            this.addScore();
+            console.log(this.score);
+          }
         }
       }
     });
