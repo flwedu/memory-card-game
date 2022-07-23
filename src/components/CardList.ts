@@ -25,7 +25,7 @@ export default class CardList implements Component {
       const cardIndex = Number(el.getAttribute("data-index"));
       const card = this.cards[cardIndex];
 
-      if (this.selectedCards[0] && this.selectedCards[0].index === card.index)
+      if (this.selectedCards[0] && this.selectedCards[0].checkEquals(card))
         return;
 
       if (this.selectedCards.length === 2) return;
