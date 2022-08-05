@@ -28,9 +28,11 @@ describe("Card component tests", () => {
 
     card.flip();
 
-    expect.assertions(2);
-    expect(el.classList.contains("flipped")).toBeTruthy();
-    expect(img.src).toEqual("http://localhost/assets/10.jpg");
+    setTimeout(() => {
+      expect.assertions(2);
+      expect(img.src).toEqual("http://localhost/assets/10.jpg");
+      expect(el.classList.contains("flipped")).toBeTruthy();
+    }, 1000);
   });
 
   test("card.unFlip() should remove flipped class of element and change img src", () => {
