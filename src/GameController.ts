@@ -54,11 +54,13 @@ export default class GameController {
   gameOver() {
     this.wrongMovesEl.hide();
 
-    $("#app").html(`<h1>Game over!</h1>
-    <div class="flex flex-center flex-col">
-    <p>Your number of wrong moves was: ${this.wrongMoves}</p>
-    <button id="restart" onClick="history.go(0);">Restart</button>
-    </div>
-    `);
+    setTimeout(() => {
+      $("#app").html(`<h1>Game over!</h1>
+      <div class="flex flex-center flex-col">
+      <p>Your number of wrong moves was: ${this.wrongMoves}</p>
+      <button id="restart" onClick="history.go(0);">Restart</button>
+      </div>
+      `);
+    }, 1500);
   }
 }
