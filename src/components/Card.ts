@@ -29,15 +29,15 @@ export default class Card implements Component {
   }
 
   flip() {
-    this.innerImgEl.src = this.frontImgUrl;
-    this.el.classList.add("flipped");
     this.flipped = true;
+    this.animateFlipping(this.frontImgUrl);
+    this.el.classList.add("flipped");
   }
 
   unFlip() {
-    this.innerImgEl.src = this.backImgUrl;
-    this.el.classList.remove("flipped");
     this.flipped = false;
+    this.animateFlipping(this.backImgUrl);
+    this.el.classList.remove("flipped");
   }
 
   checkMatch(card: Card): boolean {
@@ -58,5 +58,13 @@ export default class Card implements Component {
 
   checkEquals(card: Card): boolean {
     return this.index === card.index;
+  }
+
+  private animateFlipping(newImgUrl: string) {
+    this.el.classList.add("flipping");
+    setTimeout(() => {
+      this.innerImgEl.src = newImgUrl;
+      this.el.classList.remove("flipping");
+    }, 500);
   }
 }
