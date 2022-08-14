@@ -11,15 +11,11 @@ export function generateCardsArrayWithDoubleLength(length: number) {
 
   const shuffledArray = shuffleArray(numberArray);
 
-  const cards = generateCardsArrayFromArray(shuffledArray);
-
-  return cards;
+  return generateCardsArrayFromArray(shuffledArray);
 }
 
 export function generateCardsArrayFromArray(array: number[]) {
-  const cards = array.map((value, index) => {
+  return array.map((value, index) => {
     return new Card(value, index);
   });
-
-  return cards;
 }
