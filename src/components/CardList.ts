@@ -5,7 +5,7 @@ export default class CardList implements Component {
   private selectedCards: Card[] = [];
 
   constructor(private el: HTMLDivElement, private cards: Card[]) {
-    const gameSize = (this.cards.length / 2) as number;
+    const gameSize = this.cards.length / 2;
 
     this.el.classList.add(`size-${gameSize}`);
     const cardElements = this.cards.map((card) => card.getEl());
