@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import CardList from './components/CardList';
+import { CardList } from './components/CardList';
 import { GameController } from './GameController';
 import './styles/index.scss';
 import { generateCardsArrayWithDoubleLength } from './util/generate-cards';

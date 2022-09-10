@@ -1,7 +1,7 @@
-import Card from './Card';
-import Component from './Component';
+import { Card } from './Card';
+import { Component } from './Component';
 
-export default class CardList implements Component {
+export class CardList implements Component {
   private selectedCards: Card[] = [];
 
   constructor(private el: HTMLDivElement, private cards: Card[]) {

@@ -1,4 +1,4 @@
-import Card from '../components/Card';
+import { Card } from '../components/Card';
 import { shuffleArray } from './shuffle-array';
 
 export function generateCardsArrayWithDoubleLength(length: number) {

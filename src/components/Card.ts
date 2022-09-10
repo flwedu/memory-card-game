@@ -1,6 +1,6 @@
-import Component from './Component';
+import { Component } from './Component';
 
-export default class Card implements Component {
+export class Card implements Component {
   private flipped: boolean = false;
   private frontImgUrl: string;
   private backImgUrl: string = 'assets/0.png';

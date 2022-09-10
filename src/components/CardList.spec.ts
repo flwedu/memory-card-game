@@ -1,5 +1,5 @@
 import { generateCardsArrayFromArray } from '../util/generate-cards';
-import CardList from './CardList';
+import { CardList } from './CardList';
 
 describe('CardList class tests', () => {
   const numberArr = [1, 1, 2, 2];
