@@ -1,51 +1,51 @@
-import Card from "./Card";
+import Card from './Card';
 
-describe("Card component tests", () => {
+describe('Card component tests', () => {
   beforeEach(() => {
-    document.body.innerHTML = "";
+    document.body.innerHTML = '';
   });
 
   test.each([1, 2, 3])(
-    "Should create a card with correct attributes",
+    'Should create a card with correct attributes',
     (value: number) => {
       const card = new Card(value, 0);
       const el = card.getEl();
       document.body.appendChild(el);
 
       expect(card.getValue()).toEqual(value);
-      expect(el).toEqual(document.querySelector(".card"));
-      expect(document.querySelector("img").src).toEqual(
-        "http://localhost/assets/0.png"
+      expect(el).toEqual(document.querySelector('.card'));
+      expect(document.querySelector('img').src).toEqual(
+        'http://localhost/assets/0.png'
       );
     }
   );
 
-  test("card.flip() should add flipped class to element and change img src", () => {
+  test('card.flip() should add flipped class to element and change img src', () => {
     const card = new Card(10, 0);
     const el = card.getEl();
     document.body.appendChild(el);
-    const img = document.querySelector("img");
+    const img = document.querySelector('img');
 
     card.flip();
 
     setTimeout(() => {
       expect.assertions(2);
-      expect(img.src).toEqual("http://localhost/assets/10.jpg");
-      expect(el.classList.contains("flipped")).toBeTruthy();
+      expect(img.src).toEqual('http://localhost/assets/10.jpg');
+      expect(el.classList.contains('flipped')).toBeTruthy();
     }, 1000);
   });
 
-  test("card.unFlip() should remove flipped class of element and change img src", () => {
+  test('card.unFlip() should remove flipped class of element and change img src', () => {
     const card = new Card(10, 0);
     const el = card.getEl();
     document.body.appendChild(el);
-    const img = document.querySelector("img");
+    const img = document.querySelector('img');
 
     card.flip();
     card.unFlip();
 
     expect.assertions(2);
-    expect(el.classList.contains("flipped")).toBeFalsy();
-    expect(img.src).toEqual("http://localhost/assets/0.png");
+    expect(el.classList.contains('flipped')).toBeFalsy();
+    expect(img.src).toEqual('http://localhost/assets/0.png');
   });
 });

@@ -1,10 +1,10 @@
-import { generateCardsArrayFromArray } from "../util/generate-cards";
-import CardList from "./CardList";
+import { generateCardsArrayFromArray } from '../util/generate-cards';
+import CardList from './CardList';
 
-describe("CardList class tests", () => {
+describe('CardList class tests', () => {
   const numberArr = [1, 1, 2, 2];
-  test("render() should return the correct html to div element", () => {
-    const div = document.createElement("div");
+  test('render() should return the correct html to div element', () => {
+    const div = document.createElement('div');
     const cards = generateCardsArrayFromArray(numberArr);
     const cardList = new CardList(div, cards);
 
@@ -14,7 +14,7 @@ describe("CardList class tests", () => {
 
   test("should return false if the selected cards don't match, and getFlippedCards() should return 0 cards", () => {
     const numberArr = [1, 2];
-    const div = document.createElement("div");
+    const div = document.createElement('div');
     const cards = generateCardsArrayFromArray(numberArr);
     const cardList = new CardList(div, cards);
     const firstCard = cards[0];
@@ -31,9 +31,9 @@ describe("CardList class tests", () => {
     expect(cardList.getUnmatchedCards().length).toBe(2);
   });
 
-  test("should return true if the selected cards match, and getFlippedCards() should return 2 cards", () => {
+  test('should return true if the selected cards match, and getFlippedCards() should return 2 cards', () => {
     const numberArr = [1, 1];
-    const div = document.createElement("div");
+    const div = document.createElement('div');
     const cards = generateCardsArrayFromArray(numberArr);
     const cardList = new CardList(div, cards);
     const firstCard = cards[0];

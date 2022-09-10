@@ -1,5 +1,5 @@
-import Card from "./Card";
-import Component from "./Component";
+import Card from './Card';
+import Component from './Component';
 
 export default class CardList implements Component {
   private selectedCards: Card[] = [];
