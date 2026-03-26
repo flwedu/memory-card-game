@@ -1,10 +1,13 @@
-import { Card } from './Card';
-import { Component } from './Component';
+import { Card } from "./Card";
+import { Component } from "./Component";
 
 export class CardList implements Component {
   private selectedCards: Card[] = [];
 
-  constructor(private el: HTMLDivElement, private cards: Card[]) {
+  constructor(
+    private el: HTMLDivElement,
+    private cards: Card[],
+  ) {
     const gameSize = this.cards.length / 2;
 
     this.el.classList.add(`size-${gameSize}`);
@@ -13,8 +16,7 @@ export class CardList implements Component {
   }
 
   addToSelectedCards(card: Card): void {
-    if (card.isFlipped() || card.isMatched() || this.checkTwoSelectedCards())
-      return;
+    if (card.isFlipped() || card.isMatched() || this.checkTwoSelectedCards()) return;
 
     card.flip();
     this.selectedCards.push(card);

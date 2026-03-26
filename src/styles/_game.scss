@@ -14,29 +14,63 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  15%       { transform: translateX(-7px); }
-  30%       { transform: translateX(7px); }
-  45%       { transform: translateX(-5px); }
-  60%       { transform: translateX(5px); }
-  75%       { transform: translateX(-3px); }
-  90%       { transform: translateX(3px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-7px);
+  }
+  30% {
+    transform: translateX(7px);
+  }
+  45% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  90% {
+    transform: translateX(3px);
+  }
 }
 
 @keyframes pop-in {
-  0%   { transform: scale(0.8); opacity: 0; }
-  60%  { transform: scale(1.08); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes progress-glow {
-  0%, 100% { box-shadow: 0 0 4px rgba(33, 150, 243, 0.4); }
-  50%       { box-shadow: 0 0 10px rgba(155, 39, 176, 0.6); }
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgba(33, 150, 243, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(155, 39, 176, 0.6);
+  }
 }
 
 img {
@@ -52,10 +86,18 @@ img {
   gap: 0.5rem;
   width: 100%;
 
-  &.size-4  { grid-template-columns: repeat(4, 1fr); }
-  &.size-6  { grid-template-columns: repeat(4, 1fr); }
-  &.size-8  { grid-template-columns: repeat(4, 1fr); }
-  &.size-10 { grid-template-columns: repeat(5, 1fr); }
+  &.size-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &.size-6 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &.size-8 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &.size-10 {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 /* ── Card outer — handles hover, shake, outline ── */
@@ -66,7 +108,10 @@ img {
   border-radius: 8px;
   outline: 3px solid $color-card-border;
   perspective: 600px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, outline-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    outline-color 0.25s ease;
 
   &:not(.matched):not(.flipped):not(.shaking) {
     cursor: pointer;
@@ -207,7 +252,9 @@ img {
   animation: slide-up 0.4s ease-out both;
 
   @for $i from 1 through 4 {
-    &:nth-child(#{$i}) { animation-delay: #{$i * 0.08}s; }
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.08}s;
+    }
   }
 }
 
@@ -242,5 +289,7 @@ img {
   border-radius: 20px;
   padding: 0.35rem 1rem;
 
-  strong { color: #fff; }
+  strong {
+    color: #fff;
+  }
 }

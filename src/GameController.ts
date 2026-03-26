@@ -1,5 +1,5 @@
-import { Card } from './components/Card';
-import { CardList } from './components/CardList';
+import { Card } from "./components/Card";
+import { CardList } from "./components/CardList";
 
 export class GameController {
   private wrongMoves = 0;
@@ -10,7 +10,7 @@ export class GameController {
   constructor(
     private cardList: CardList,
     private cardsArr: Card[],
-    private wrongMovesEl: HTMLElement
+    private wrongMovesEl: HTMLElement,
   ) {}
 
   private get gameSize(): number {
@@ -20,13 +20,13 @@ export class GameController {
   add1WrongMove() {
     this.wrongMoves++;
     this.wrongMovesEl.innerHTML = `<p>Wrong moves: ${this.wrongMoves}</p>`;
-    const el = document.getElementById('wrong-moves-value');
+    const el = document.getElementById("wrong-moves-value");
     if (el) el.textContent = String(this.wrongMoves);
   }
 
   private incrementMoves() {
     this.totalMoves++;
-    const el = document.getElementById('total-moves-value');
+    const el = document.getElementById("total-moves-value");
     if (el) el.textContent = String(this.totalMoves);
   }
 
@@ -34,14 +34,14 @@ export class GameController {
     const total = this.cardsArr.length;
     const matched = this.cardsArr.filter((c) => c.isMatched()).length;
     const pct = (matched / total) * 100;
-    const bar = document.getElementById('progress-bar');
+    const bar = document.getElementById("progress-bar");
     if (bar) bar.style.width = `${pct}%`;
   }
 
   private startTimer() {
     this.timerInterval = setInterval(() => {
       this.seconds++;
-      const el = document.getElementById('timer-value');
+      const el = document.getElementById("timer-value");
       if (el) el.textContent = this.formatTime(this.seconds);
     }, 1000);
   }
@@ -56,7 +56,7 @@ export class GameController {
   private formatTime(secs: number): string {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   }
 
   private getBestTime(): number | null {
@@ -83,15 +83,15 @@ export class GameController {
     this.startTimer();
     const cardListEl = this.cardList.getEl();
 
-    cardListEl.addEventListener('click', (e) => {
+    cardListEl.addEventListener("click", (e) => {
       if (this.cardList.checkTwoSelectedCards()) return;
 
       let el = e.target as HTMLElement;
-      if (el.tagName === 'IMG') {
-        el = el.closest('.card');
+      if (el.tagName === "IMG") {
+        el = el.closest(".card");
       }
-      if (el.classList.contains('card')) {
-        const cardIndex = Number(el.getAttribute('data-index'));
+      if (el.classList.contains("card")) {
+        const cardIndex = Number(el.getAttribute("data-index"));
         const card = this.cardsArr[cardIndex];
 
         this.cardList.addToSelectedCards(card);
@@ -119,13 +119,13 @@ export class GameController {
     this.stopTimer();
     this.saveBestTime();
 
-    this.wrongMovesEl.style.display = 'none';
+    this.wrongMovesEl.style.display = "none";
 
-    const hud = document.getElementById('game-hud');
-    if (hud) hud.style.display = 'none';
+    const hud = document.getElementById("game-hud");
+    if (hud) hud.style.display = "none";
 
-    const progressContainer = document.getElementById('progress-bar-container');
-    if (progressContainer) progressContainer.style.display = 'none';
+    const progressContainer = document.getElementById("progress-bar-container");
+    if (progressContainer) progressContainer.style.display = "none";
 
     const accuracy =
       this.totalMoves > 0
@@ -136,13 +136,13 @@ export class GameController {
     const isNewBest = prevBest === this.seconds;
     const bestTimeHtml =
       prevBest !== null
-        ? `<div class="best-time-badge">Best: <strong>${this.formatTime(prevBest)}</strong>${isNewBest ? ' 🏆' : ''}</div>`
-        : '';
+        ? `<div class="best-time-badge">Best: <strong>${this.formatTime(prevBest)}</strong>${isNewBest ? " 🏆" : ""}</div>`
+        : "";
 
     setTimeout(() => {
-      document.getElementById('app').innerHTML = `
+      document.getElementById("app").innerHTML = `
         <div class="game-over">
-          <h1>Game over! ${isNewBest ? '🏆' : '🎉'}</h1>
+          <h1>Game over! ${isNewBest ? "🏆" : "🎉"}</h1>
           <div class="stats">
             <div class="stat">
               <span class="stat-label">Time</span>

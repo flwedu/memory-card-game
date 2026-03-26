@@ -6,10 +6,7 @@ export function shuffleArray(array: number[]) {
     randomIndex = Math.floor(Math.random() * lastIndex);
     lastIndex--;
 
-    [array[lastIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[lastIndex],
-    ];
+    [array[lastIndex], array[randomIndex]] = [array[randomIndex], array[lastIndex]];
   }
 
   return array;
