@@ -51,7 +51,6 @@ img {
   display: grid;
   gap: 0.5rem;
   width: 100%;
-  perspective: 800px;
 
   &.size-4  { grid-template-columns: repeat(4, 1fr); }
   &.size-6  { grid-template-columns: repeat(4, 1fr); }
@@ -59,16 +58,17 @@ img {
   &.size-10 { grid-template-columns: repeat(5, 1fr); }
 }
 
+/* ── Card outer — handles hover, shake, outline ── */
 .card {
+  position: relative;
   aspect-ratio: 2 / 3;
   box-sizing: border-box;
   border-radius: 8px;
   outline: 3px solid $color-card-border;
-  transition: transform 0.5s ease, box-shadow 0.3s ease, outline-color 0.3s ease;
-  transform-style: preserve-3d;
-  overflow: hidden;
+  perspective: 600px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, outline-color 0.25s ease;
 
-  &:not(.matched):not(.flipped):not(.flipping) {
+  &:not(.matched):not(.flipped):not(.shaking) {
     cursor: pointer;
 
     &:hover {
@@ -79,23 +79,47 @@ img {
   }
 }
 
-.flipped {
+/* ── Card inner — handles the 3D flip rotation ── */
+.card-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ── Card faces ── */
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-front {
+  transform: rotateY(180deg); /* hidden until card flips */
+}
+
+/* ── State modifiers ── */
+.card.flipped {
   outline-color: $color-card-flipped;
-  box-shadow: 0 0 12px rgba(155, 39, 176, 0.5);
+  box-shadow: 0 0 14px rgba(155, 39, 176, 0.5);
 }
 
-.flipping {
-  transform: rotateY(0.5turn) !important;
-}
-
-.matched {
+.card.matched {
   outline-color: $color-card-matched;
   animation: match-pulse 0.5s ease-out;
   opacity: 0.88;
   cursor: default;
 }
 
-.shaking {
+.card.shaking {
   animation: shake 0.35s ease-in-out;
   outline-color: $color-card-shake !important;
   box-shadow: 0 0 12px rgba(244, 67, 54, 0.5) !important;

@@ -5,15 +5,32 @@ export class Card implements Component {
   private frontImgUrl: string;
   private backImgUrl: string = 'assets/0.png';
   private el: HTMLDivElement = document.createElement('div');
-  private innerImgEl: HTMLImageElement = document.createElement('img');
 
   constructor(private value: number, public index: number) {
     this.el.dataset.index = index.toString();
     this.frontImgUrl = `assets/${this.value}.jpg`;
     this.el.className = 'card';
-    this.innerImgEl.src = this.backImgUrl;
 
-    this.el.appendChild(this.innerImgEl);
+    const inner = document.createElement('div');
+    inner.className = 'card-inner';
+
+    // Back face — shown by default
+    const backFace = document.createElement('div');
+    backFace.className = 'card-face card-back';
+    const backImg = document.createElement('img');
+    backImg.src = this.backImgUrl;
+    backFace.appendChild(backImg);
+
+    // Front face — preloaded, revealed on flip
+    const frontFace = document.createElement('div');
+    frontFace.className = 'card-face card-front';
+    const frontImg = document.createElement('img');
+    frontImg.src = this.frontImgUrl;
+    frontFace.appendChild(frontImg);
+
+    inner.appendChild(backFace);
+    inner.appendChild(frontFace);
+    this.el.appendChild(inner);
   }
 
   getValue(): number {
@@ -30,13 +47,11 @@ export class Card implements Component {
 
   flip() {
     this.flipped = true;
-    this.animateFlipping(this.frontImgUrl);
     this.el.classList.add('flipped');
   }
 
   unFlip() {
     this.flipped = false;
-    this.animateFlipping(this.backImgUrl);
     this.el.classList.remove('flipped');
   }
 
@@ -65,13 +80,5 @@ export class Card implements Component {
     setTimeout(() => {
       this.el.classList.remove('shaking');
     }, 350);
-  }
-
-  private animateFlipping(newImgUrl: string) {
-    this.el.classList.add('flipping');
-    setTimeout(() => {
-      this.innerImgEl.src = newImgUrl;
-      this.el.classList.remove('flipping');
-    }, 500);
   }
 }
