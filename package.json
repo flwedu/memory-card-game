@@ -13,20 +13,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "eslint": "^8.0.1",
-    "eslint-config-standard-with-typescript": "^22.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
     "jsdom": "^26.0.0",
+    "oxfmt": "^0.42.0",
+    "oxlint": "^1.57.0",
     "sass": "^1.0.0",
     "typescript": "*",
     "vite": "^6.0.0",
     "vitest": "^3.0.0"
   },
-  "dependencies": {},
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
