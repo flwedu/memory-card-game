@@ -1,41 +1,222 @@
+@keyframes match-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.8);
+    transform: scale(1);
+  }
+  40% {
+    box-shadow: 0 0 0 12px rgba(76, 175, 80, 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-7px); }
+  30%       { transform: translateX(7px); }
+  45%       { transform: translateX(-5px); }
+  60%       { transform: translateX(5px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+
+@keyframes pop-in {
+  0%   { transform: scale(0.8); opacity: 0; }
+  60%  { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes progress-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(33, 150, 243, 0.4); }
+  50%       { box-shadow: 0 0 10px rgba(155, 39, 176, 0.6); }
+}
+
 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 6px;
+  display: block;
 }
 
 .card-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  gap: 0.5rem;
+  width: 100%;
+  perspective: 800px;
 
-  &.size-4 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  &.size-10 {
-    grid-template-columns: repeat(5, 1fr);
-  }
+  &.size-4  { grid-template-columns: repeat(4, 1fr); }
+  &.size-6  { grid-template-columns: repeat(4, 1fr); }
+  &.size-8  { grid-template-columns: repeat(4, 1fr); }
+  &.size-10 { grid-template-columns: repeat(5, 1fr); }
 }
 
 .card {
-  width: 100%;
-  height: 100%;
+  aspect-ratio: 2 / 3;
   box-sizing: border-box;
-  transition: all 1s ease-in-out;
+  border-radius: 8px;
+  outline: 3px solid $color-card-border;
+  transition: transform 0.5s ease, box-shadow 0.3s ease, outline-color 0.3s ease;
   transform-style: preserve-3d;
-  outline: 5px solid $color-card-border;
+  overflow: hidden;
+
+  &:not(.matched):not(.flipped):not(.flipping) {
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 8px 24px rgba(33, 150, 243, 0.45);
+      outline-color: rgba(33, 150, 243, 0.6);
+    }
+  }
 }
 
 .flipped {
   outline-color: $color-card-flipped;
+  box-shadow: 0 0 12px rgba(155, 39, 176, 0.5);
 }
 
 .flipping {
-  transform: rotateY(0.5turn);
+  transform: rotateY(0.5turn) !important;
 }
 
 .matched {
-  outline-color: $color-card-border;
+  outline-color: $color-card-matched;
+  animation: match-pulse 0.5s ease-out;
+  opacity: 0.88;
+  cursor: default;
 }
 
+.shaking {
+  animation: shake 0.35s ease-in-out;
+  outline-color: $color-card-shake !important;
+  box-shadow: 0 0 12px rgba(244, 67, 54, 0.5) !important;
+}
+
+/* ── HUD ──────────────────────────────── */
+#game-hud {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.4rem;
+
+  > div {
+    flex: 1;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 0.3rem 0.5rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+
+    span {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+  }
+}
+
+/* ── Progress bar ─────────────────────── */
+#progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+
+  #progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, $color-blue-500, $color-purple-500);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    animation: progress-glow 2s ease infinite;
+  }
+}
+
+/* ── Game over screen ─────────────────── */
+.game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  animation: pop-in 0.4s ease-out;
+
+  h1 {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.6rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slide-up 0.4s ease-out both;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) { animation-delay: #{$i * 0.08}s; }
+  }
+}
+
+.stat-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.stat-value {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.best-time-badge {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 0.35rem 1rem;
+
+  strong { color: #fff; }
+}

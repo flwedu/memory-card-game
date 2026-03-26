@@ -8,26 +8,36 @@
   <title>Card Game 🃏</title>
 </head>
 
-<body class="w-9/10 h-9/10">
-  <div class="gradient-border flex flex-center flex-col">
+<body>
+  <div class="gradient-border">
     <div id="app">
       <div id="game-settings">
         <h1>Memory Card Game</h1>
-        <p>Please select the game size:</p>
+        <p class="subtitle">Test your memory!</p>
+        <div id="best-scores"></div>
         <form name="settings" action="#" class="flex flex-center flex-col" method="POST">
+          <label for="size">Number of pairs</label>
           <select name="size" id="size">
-            <option value="4">4</option>
-            <option value="6">6</option>
-            <option value="8">8</option>
-            <option value="10">10</option>
+            <option value="4">4 pairs — Easy</option>
+            <option value="6">6 pairs — Medium</option>
+            <option value="8">8 pairs — Hard</option>
+            <option value="10">10 pairs — Expert</option>
           </select>
           <button type="submit" name="submit" id="submit">Start Game</button>
         </form>
       </div>
-      <div id="wrong-moves">
-        <p>Wrong moves: 0</p>
+
+      <div id="game-hud" style="display:none">
+        <div id="timer">⏱ <span id="timer-value">00:00</span></div>
+        <div id="wrong-moves">❌ <span id="wrong-moves-value">0</span></div>
+        <div id="total-moves">🎯 <span id="total-moves-value">0</span></div>
       </div>
-      <div id="card-list" class="card-list"></div>
+
+      <div id="progress-bar-container" style="display:none">
+        <div id="progress-bar"></div>
+      </div>
+
+      <div id="card-list" class="card-list" style="display:none"></div>
     </div>
   </div>
   <script type="module" src="/src/index.ts"></script>
