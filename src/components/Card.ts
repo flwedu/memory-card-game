@@ -60,6 +60,13 @@ export class Card implements Component {
     return this.index === card.index;
   }
 
+  shake() {
+    this.el.classList.add('shaking');
+    setTimeout(() => {
+      this.el.classList.remove('shaking');
+    }, 350);
+  }
+
   private animateFlipping(newImgUrl: string) {
     this.el.classList.add('flipping');
     setTimeout(() => {

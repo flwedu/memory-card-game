@@ -52,6 +52,13 @@ export class CardList implements Component {
     return false;
   }
 
+  shakeSelectedCards(): void {
+    const cardsToShake = [...this.selectedCards];
+    setTimeout(() => {
+      cardsToShake.forEach((card) => card.shake());
+    }, 600);
+  }
+
   private unFlipSelectedCards(): void {
     this.selectedCards.forEach((card) => card.unFlip());
     this.selectedCards = [];
