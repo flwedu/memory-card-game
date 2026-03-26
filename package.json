@@ -13,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@types/jquery": "^3.5.14",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "eslint": "^8.0.1",
     "eslint-config-standard-with-typescript": "^22.0.0",
@@ -26,9 +25,7 @@
     "typescript": "*",
     "vite": "^6.0.0"
   },
-  "dependencies": {
-    "jquery": "^3.6.0"
-  },
+  "dependencies": {},
   "pnpm": {
     "onlyBuiltDependencies": ["esbuild"]
   }
