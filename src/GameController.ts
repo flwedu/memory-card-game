@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { Card } from './components/Card';
 import { CardList } from './components/CardList';
 
@@ -8,12 +7,12 @@ export class GameController {
   constructor(
     private cardList: CardList,
     private cardsArr: Card[],
-    private wrongMovesEl: JQuery<HTMLParagraphElement>
+    private wrongMovesEl: HTMLElement
   ) {}
 
   add1WrongMove() {
     this.wrongMoves++;
-    this.wrongMovesEl.html(`<p>Wrong moves: ${this.wrongMoves}</p>`);
+    this.wrongMovesEl.innerHTML = `<p>Wrong moves: ${this.wrongMoves}</p>`;
   }
 
   start() {
@@ -52,15 +51,15 @@ export class GameController {
   }
 
   gameOver() {
-    this.wrongMovesEl.hide();
+    this.wrongMovesEl.style.display = 'none';
 
     setTimeout(() => {
-      $('#app').html(`<h1>Game over!</h1>
+      document.getElementById('app').innerHTML = `<h1>Game over!</h1>
       <div class="flex flex-center flex-col">
       <p>Your number of wrong moves was: ${this.wrongMoves}</p>
       <button id="restart" onClick="history.go(0);">Restart</button>
       </div>
-      `);
+      `;
     }, 1500);
   }
 }
